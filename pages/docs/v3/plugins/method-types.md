@@ -23,7 +23,7 @@ export type MyPluginCallback = (message: MyData | null, err?: any) => void;
 export interface MyPlugin {
   method1(): Promise<void>;
   method2(): Promise<MyData>;
-  cmethod3(callback: MyPluginCallback): Promise<CallbackID>;
+  method3(options:{}, callback: MyPluginCallback): Promise<CallbackID>;
 }
 ```
 
@@ -69,7 +69,7 @@ CAP_PLUGIN(MyPlugin, "MyPlugin",
 
 ## Callback
 
-`method3()` is the most complex type but also the least common in practice. It is used when your plugin needs to return data repeatedly, such as when monitoring the device's location via the geolocation API.
+`method3()` is the most complex type but also the least common in practice. It is used when your plugin needs to return data repeatedly, such as when monitoring the device's location via the geolocation API. The resolve method can be invoked multiple times on the call object, each invocation triggering a call to the second parameter in the javascript code.
 
 For android, you would annotate the method like this:
 
